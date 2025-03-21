@@ -1,0 +1,31 @@
+/* Couleur de la barre de navigation */
+.navbar {
+    background-color: #333;
+    border: none;
+}
+.navbar-brand {
+    color: white !important;
+}
+.navbar-toggle {
+    border-color: white;
+}
+.navbar-toggle .icon-bar {
+    background-color: white;
+}
+
+/* Menu mobile (plein écran) */
+.navbar-nav {
+    background-color: #444;
+}
+.navbar-nav li a {
+    color: white !important;
+    text-align: center;
+    display: block;
+}
+
+/* Contenu principal */
+.section-content {
+    height: 1000px; /* Section haute pour le scroll */
+    background-color: #f8f8f8;
+    padding: 20px;
+}
