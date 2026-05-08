@@ -1,4 +1,5 @@
 // interface .py
+
 from tkinter import *
 
 # ---------------- Fenêtre principale ----------------
