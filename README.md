@@ -163,3 +163,10 @@ print("y =", value(y))
 print("Profit maximum =", value(model.objective))
 # ---------------- Lancement ----------------
 fenetre.mainloop()
+
+
+
+
+// projet PL&Python3
+
+ [📄 Voir le rapport PDF](projet PL&Python 3.pdf)
