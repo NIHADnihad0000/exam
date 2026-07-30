@@ -1,0 +1,870 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aéroport - Gestion des objets perdus</title>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* ===== RESET & BASE ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            background: #e8edf3;
+            min-height: 100vh;
+            padding: 1.5rem;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+        }
+
+        .app-wrapper {
+            max-width: 1280px;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.88);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-radius: 48px;
+            padding: 2rem 2.5rem 2.8rem;
+            box-shadow: 0 30px 60px rgba(0, 20, 30, 0.10), 0 10px 24px rgba(0, 0, 0, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+        }
+
+        /* ===== HEADER AÉROPORT ===== */
+        .airport-header {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem 2rem;
+            margin-bottom: 1.8rem;
+            padding-bottom: 1.2rem;
+            border-bottom: 2px solid rgba(0, 60, 100, 0.08);
+        }
+
+        .header-brand {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .header-brand .logo-icon {
+            background: #0a2e44;
+            color: white;
+            width: 52px;
+            height: 52px;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            box-shadow: 0 4px 12px rgba(0, 40, 70, 0.2);
+        }
+
+        .header-brand h1 {
+            font-size: 1.8rem;
+            font-weight: 650;
+            letter-spacing: -0.5px;
+            color: #0a2a3b;
+        }
+
+        .header-brand h1 small {
+            display: block;
+            font-size: 0.65rem;
+            font-weight: 500;
+            color: #3c7a9a;
+            letter-spacing: 1.2px;
+            text-transform: uppercase;
+            margin-top: 2px;
+        }
+
+        .header-stats {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.8rem 1.8rem;
+            background: #e1eaf2;
+            padding: 0.4rem 1.8rem;
+            border-radius: 60px;
+            font-size: 0.85rem;
+            color: #173f54;
+            font-weight: 500;
+            box-shadow: inset 0 1px 4px rgba(0,0,0,0.02);
+        }
+
+        .header-stats span {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .header-stats i {
+            color: #1f6f8f;
+            width: 1.2rem;
+        }
+
+        .stat-badge {
+            background: white;
+            padding: 0.05rem 0.8rem;
+            border-radius: 40px;
+            font-weight: 600;
+            color: #0b3347;
+            margin-left: 4px;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.02);
+        }
+
+        /* ===== ZONES AÉROPORT ===== */
+        .zone-filter-bar {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 0.8rem 1.2rem;
+            background: rgba(255, 255, 255, 0.5);
+            padding: 0.6rem 1.5rem;
+            border-radius: 60px;
+            margin-bottom: 1.5rem;
+            border: 1px solid rgba(255, 255, 255, 0.7);
+        }
+
+        .zone-filter-bar label {
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.6px;
+            color: #265d7a;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .zone-filter-bar select {
+            padding: 0.4rem 1.2rem;
+            border-radius: 40px;
+            border: 1px solid #d0deec;
+            background: white;
+            font-size: 0.9rem;
+            color: #12384d;
+            outline: none;
+            cursor: pointer;
+        }
+
+        .zone-filter-bar select:focus {
+            border-color: #2a7f9c;
+            box-shadow: 0 0 0 3px rgba(42, 127, 156, 0.12);
+        }
+
+        .zone-filter-bar .zone-badge {
+            background: #0a2e44;
+            color: white;
+            padding: 0.15rem 1rem;
+            border-radius: 40px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+
+        /* ===== RECHERCHE ===== */
+        .search-bar {
+            background: white;
+            border-radius: 60px;
+            padding: 0.2rem 0.2rem 0.2rem 1.8rem;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            box-shadow: 0 8px 20px rgba(0, 40, 60, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            margin-bottom: 1.8rem;
+            transition: box-shadow 0.2s;
+        }
+
+        .search-bar:focus-within {
+            box-shadow: 0 10px 28px rgba(0, 60, 90, 0.08);
+        }
+
+        .search-bar i {
+            color: #4a7b99;
+            font-size: 1rem;
+            opacity: 0.7;
+        }
+
+        .search-bar input {
+            border: none;
+            padding: 0.85rem 0.6rem;
+            font-size: 1rem;
+            flex: 1;
+            outline: none;
+            background: transparent;
+            color: #12384d;
+            font-weight: 450;
+            min-width: 140px;
+        }
+
+        .search-bar input::placeholder {
+            color: #8aaec4;
+            font-weight: 350;
+        }
+
+        .search-bar .search-actions {
+            display: flex;
+            gap: 0.3rem;
+        }
+
+        .search-bar button {
+            background: #1f5f7e;
+            border: none;
+            color: white;
+            font-weight: 500;
+            padding: 0.6rem 1.6rem;
+            border-radius: 40px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: background 0.15s, transform 0.08s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            letter-spacing: 0.3px;
+            box-shadow: 0 4px 10px rgba(0, 50, 70, 0.12);
+            white-space: nowrap;
+        }
+
+        .search-bar button:hover {
+            background: #114a64;
+            transform: scale(0.97);
+        }
+
+        .search-bar .btn-clear {
+            background: #dce6ef;
+            color: #1f4b62;
+            box-shadow: none;
+            padding: 0.6rem 1.2rem;
+        }
+
+        .search-bar .btn-clear:hover {
+            background: #c8d6e4;
+            transform: scale(0.97);
+        }
+
+        /* ===== FORMULAIRE ===== */
+        .form-card {
+            background: rgba(255, 255, 255, 0.5);
+            backdrop-filter: blur(2px);
+            -webkit-backdrop-filter: blur(2px);
+            border-radius: 32px;
+            padding: 1.5rem 2rem;
+            margin-bottom: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            box-shadow: 0 6px 18px rgba(0, 20, 30, 0.04);
+        }
+
+        .form-grid {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: flex-end;
+            gap: 0.8rem 1.2rem;
+        }
+
+        .form-group {
+            flex: 1 0 140px;
+            min-width: 120px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            letter-spacing: 0.6px;
+            font-weight: 600;
+            color: #265d7a;
+            margin-bottom: 4px;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 0.55rem 1rem;
+            border: 1px solid #d6e2ef;
+            border-radius: 30px;
+            background: white;
+            font-size: 0.9rem;
+            transition: 0.15s;
+            color: #12384d;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            border-color: #2a7f9c;
+            outline: none;
+            box-shadow: 0 0 0 4px rgba(42, 127, 156, 0.10);
+        }
+
+        .btn-add {
+            background: #1d7a5e;
+            border: none;
+            color: white;
+            font-weight: 600;
+            padding: 0.55rem 2rem;
+            border-radius: 40px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: background 0.15s, transform 0.08s;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 6px 14px rgba(0, 80, 60, 0.15);
+            border: 1px solid rgba(255,255,255,0.15);
+        }
+
+        .btn-add:hover {
+            background: #12624a;
+            transform: scale(0.97);
+        }
+
+        /* ===== LISTE ===== */
+        .list-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin: 1.5rem 0 0.8rem 0.2rem;
+        }
+
+        .list-header h2 {
+            font-weight: 500;
+            font-size: 1.3rem;
+            color: #133a4f;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .list-header h2 i {
+            color: #2a7f9c;
+        }
+
+        .list-header .count-badge {
+            background: #d3e1ed;
+            padding: 0.15rem 1.2rem;
+            border-radius: 40px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            color: #123f56;
+        }
+
+        .items-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.3rem;
+            margin-top: 0.8rem;
+        }
+
+        /* ===== CARTE AÉROPORT ===== */
+        .card {
+            background: white;
+            border-radius: 28px;
+            padding: 1.3rem 1.3rem 1.1rem;
+            box-shadow: 0 8px 22px rgba(0, 30, 40, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.7);
+            transition: 0.18s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 16px 32px rgba(0, 30, 40, 0.07);
+            border-color: #c2d7e8;
+        }
+
+        .card-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 0.3rem;
+        }
+
+        .card-title {
+            font-weight: 650;
+            font-size: 1.15rem;
+            color: #0c3145;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .card-title i {
+            color: #2a7f9c;
+            font-size: 1rem;
+        }
+
+        .card-status {
+            font-size: 0.6rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            padding: 0.1rem 0.8rem;
+            border-radius: 40px;
+            letter-spacing: 0.5px;
+            background: #eef4f9;
+            color: #1d4f69;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            white-space: nowrap;
+        }
+
+        .card-status.restitué {
+            background: #d4ece0;
+            color: #0e5a40;
+        }
+
+        .card-details {
+            margin: 0.4rem 0 0.2rem;
+        }
+
+        .card-detail {
+            font-size: 0.85rem;
+            color: #284f66;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 0.15rem 0;
+        }
+
+        .card-detail i {
+            width: 1.2rem;
+            color: #4b7c99;
+            font-size: 0.85rem;
+        }
+
+        .card-detail .zone-tag {
+            background: #e4edf5;
+            padding: 0.05rem 0.7rem;
+            border-radius: 30px;
+            font-size: 0.7rem;
+            font-weight: 500;
+            color: #1a5775;
+        }
+
+        .card-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 0.4rem;
+            margin-top: 0.8rem;
+            border-top: 1px solid #eaf1f8;
+            padding-top: 0.7rem;
+        }
+
+        .card-actions button {
+            border: none;
+            background: transparent;
+            padding: 0.2rem 0.9rem;
+            border-radius: 40px;
+            font-size: 0.7rem;
+            font-weight: 500;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            transition: 0.1s;
+            color: #1d5a78;
+        }
+
+        .card-actions .btn-restore {
+            background: #dbeaf3;
+            color: #14506b;
+        }
+
+        .card-actions .btn-restore:hover {
+            background: #c2dae8;
+        }
+
+        .card-actions .btn-delete {
+            background: #f1e3e3;
+            color: #9e4141;
+        }
+
+        .card-actions .btn-delete:hover {
+            background: #ebd0d0;
+        }
+
+        .empty-message {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 3rem 1rem;
+            color: #4d738b;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 60px;
+            font-size: 1.1rem;
+            border: 1px dashed #b8cfdf;
+        }
+
+        .empty-message i {
+            font-size: 2.2rem;
+            display: block;
+            margin-bottom: 12px;
+            color: #6f99b2;
+        }
+
+        /* ===== FOOTER ===== */
+        .footer {
+            margin-top: 2.2rem;
+            text-align: right;
+            font-size: 0.7rem;
+            color: #7b9bb0;
+            border-top: 1px solid rgba(0,0,0,0.03);
+            padding-top: 1rem;
+        }
+
+        .footer i {
+            margin-right: 6px;
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 760px) {
+            .app-wrapper { padding: 1.2rem 1rem; }
+            .airport-header { flex-direction: column; align-items: stretch; gap: 0.8rem; }
+            .header-brand h1 { font-size: 1.4rem; }
+            .header-stats { justify-content: center; padding: 0.3rem 1rem; font-size: 0.75rem; }
+            .zone-filter-bar { flex-wrap: wrap; border-radius: 30px; padding: 0.8rem 1.2rem; }
+            .search-bar { flex-wrap: wrap; padding: 0.5rem 0.8rem; border-radius: 30px; }
+            .search-bar input { padding: 0.5rem 0.2rem; }
+            .search-bar .search-actions { width: 100%; justify-content: stretch; }
+            .search-bar .search-actions button { flex: 1; justify-content: center; padding: 0.5rem 0.8rem; }
+            .form-grid { flex-direction: column; align-items: stretch; }
+            .form-group { min-width: 100%; }
+            .btn-add { width: 100%; justify-content: center; }
+            .items-grid { grid-template-columns: 1fr; }
+        }
+
+        @media (max-width: 480px) {
+            .header-brand .logo-icon { width: 42px; height: 42px; font-size: 1.4rem; }
+            .header-brand h1 { font-size: 1.2rem; }
+            .header-stats { gap: 0.2rem 0.8rem; }
+        }
+    </style>
+</head>
+<body>
+<div class="app-wrapper">
+
+    <!-- ===== HEADER AÉROPORT ===== -->
+    <div class="airport-header">
+        <div class="header-brand">
+            <div class="logo-icon"><i class="fas fa-plane-departure"></i></div>
+            <h1>
+                Objets perdus
+                <small>SkyFound</small>
+            </h1>
+        </div>
+        <div class="header-stats" id="statsContainer">
+            <span><i class="fas fa-box"></i> Total <strong class="stat-badge" id="totalCount">0</strong></span>
+            <span><i class="fas fa-hourglass-half"></i> Perdus <strong class="stat-badge" id="lostCount">0</strong></span>
+            <span><i class="fas fa-check-circle"></i> Restitués <strong class="stat-badge" id="returnedCount">0</strong></span>
+        </div>
+    </div>
+
+    <!-- ===== FILTRE PAR ZONE AÉROPORT ===== -->
+    <div class="zone-filter-bar">
+        <label><i class="fas fa-map-marked-alt"></i> Zone</label>
+        <select id="zoneFilter">
+            <option value="toutes">Toutes les zones</option>
+            <option value="Terminal 1">Terminal 1</option>
+            <option value="Terminal 2">Terminal 2</option>
+            <option value="Terminal 3">Terminal 3</option>
+            <option value="Zone arrivées">Zone arrivées</option>
+            <option value="Zone départs">Zone départs</option>
+            <option value="Parking">Parking</option>
+            <option value="Zone fret">Zone fret</option>
+            <option value="Salon VIP">Salon VIP</option>
+        </select>
+        <span class="zone-badge"><i class="fas fa-location-dot"></i> Filtre actif</span>
+    </div>
+
+    <!-- ===== RECHERCHE ===== -->
+    <div class="search-bar">
+        <i class="fas fa-search"></i>
+        <input type="text" id="searchInput" placeholder="Rechercher par nom, zone, description...">
+        <div class="search-actions">
+            <button id="searchBtn"><i class="fas fa-filter"></i> Filtrer</button>
+            <button class="btn-clear" id="clearSearchBtn"><i class="fas fa-times"></i> Effacer</button>
+        </div>
+    </div>
+
+    <!-- ===== FORMULAIRE D'AJOUT ===== -->
+    <div class="form-card">
+        <div class="form-grid">
+            <div class="form-group">
+                <label><i class="fas fa-tag"></i> Nom objet</label>
+                <input type="text" id="itemName" placeholder="ex: Valise, Passeport..." value="Sac à dos">
+            </div>
+            <div class="form-group">
+                <label><i class="fas fa-map-pin"></i> Zone</label>
+                <select id="itemZone">
+                    <option value="Terminal 1">Terminal 1</option>
+                    <option value="Terminal 2">Terminal 2</option>
+                    <option value="Terminal 3">Terminal 3</option>
+                    <option value="Zone arrivées" selected>Zone arrivées</option>
+                    <option value="Zone départs">Zone départs</option>
+                    <option value="Parking">Parking</option>
+                    <option value="Zone fret">Zone fret</option>
+                    <option value="Salon VIP">Salon VIP</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label><i class="fas fa-calendar-day"></i> Date</label>
+                <input type="date" id="itemDate" value="2026-07-24">
+            </div>
+            <div class="form-group">
+                <label><i class="fas fa-info-circle"></i> Statut</label>
+                <select id="itemStatus">
+                    <option value="perdu">Perdu</option>
+                    <option value="restitué">Restitué</option>
+                </select>
+            </div>
+            <button class="btn-add" id="addBtn"><i class="fas fa-plus-circle"></i> Ajouter</button>
+        </div>
+    </div>
+
+    <!-- ===== LISTE ===== -->
+    <div class="list-header">
+        <h2><i class="fas fa-list-ul"></i> Objets enregistrés</h2>
+        <span class="count-badge" id="listCount">0</span>
+    </div>
+
+    <div class="items-grid" id="itemsGrid">
+        <div class="empty-message"><i class="fas fa-box-open"></i>Aucun objet enregistré</div>
+    </div>
+
+    <div class="footer">
+        <i class="fas fa-plane"></i> Aéroport · Service objets perdus — données locales
+    </div>
+</div>
+
+<script>
+    (function() {
+        'use strict';
+
+        // ============================================================
+        //  DONNÉES INITIALES (contexte aéroport)
+        // ============================================================
+        let items = [
+            { id: 1, name: "Valise rouge", zone: "Terminal 1", date: "2026-07-22", status: "perdu" },
+            { id: 2, name: "Passeport", zone: "Zone départs", date: "2026-07-23", status: "perdu" },
+            { id: 3, name: "Casque audio", zone: "Salon VIP", date: "2026-07-20", status: "restitué" },
+            { id: 4, name: "Sac à dos", zone: "Zone arrivées", date: "2026-07-24", status: "perdu" },
+            { id: 5, name: "Lunettes de soleil", zone: "Parking", date: "2026-07-18", status: "restitué" },
+            { id: 6, name: "Ordinateur portable", zone: "Terminal 2", date: "2026-07-21", status: "perdu" },
+            { id: 7, name: "Trousse de toilette", zone: "Zone fret", date: "2026-07-19", status: "perdu" },
+        ];
+        let nextId = 8;
+
+        // ============================================================
+        //  RÉFÉRENCES DOM
+        // ============================================================
+        const grid = document.getElementById('itemsGrid');
+        const searchInput = document.getElementById('searchInput');
+        const searchBtn = document.getElementById('searchBtn');
+        const clearSearchBtn = document.getElementById('clearSearchBtn');
+        const addBtn = document.getElementById('addBtn');
+        const zoneFilter = document.getElementById('zoneFilter');
+
+        const nameInput = document.getElementById('itemName');
+        const zoneInput = document.getElementById('itemZone');
+        const dateInput = document.getElementById('itemDate');
+        const statusSelect = document.getElementById('itemStatus');
+
+        const totalCount = document.getElementById('totalCount');
+        const lostCount = document.getElementById('lostCount');
+        const returnedCount = document.getElementById('returnedCount');
+        const listCount = document.getElementById('listCount');
+
+        // ============================================================
+        //  UTILITAIRES
+        // ============================================================
+        function escapeHtml(text) {
+            const map = { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;' };
+            return String(text).replace(/[&<>"']/g, m => map[m]);
+        }
+
+        // ============================================================
+        //  RENDU PRINCIPAL (avec filtres combinés)
+        // ============================================================
+        function renderItems() {
+            // 1. Filtrer par zone
+            const zoneValue = zoneFilter.value;
+            let filtered = zoneValue === 'toutes' ? items : items.filter(item => item.zone === zoneValue);
+
+            // 2. Filtrer par recherche textuelle
+            const query = searchInput.value.trim().toLowerCase();
+            if (query !== '') {
+                filtered = filtered.filter(item =>
+                    item.name.toLowerCase().includes(query) ||
+                    item.zone.toLowerCase().includes(query) ||
+                    item.status.toLowerCase().includes(query) ||
+                    item.date.includes(query)
+                );
+            }
+
+            // Tri par date décroissante
+            const sorted = [...filtered].sort((a, b) => (a.date < b.date ? 1 : -1));
+
+            if (sorted.length === 0) {
+                grid.innerHTML = `
+                    <div class="empty-message">
+                        <i class="fas fa-box-open"></i>
+                        ${query !== '' || zoneValue !== 'toutes' ? 'Aucun objet ne correspond aux filtres' : 'Aucun objet enregistré'}
+                    </div>
+                `;
+                updateStatsAndCount(filtered);
+                return;
+            }
+
+            let html = '';
+            sorted.forEach(item => {
+                const isRestitué = item.status === 'restitué';
+                const statusClass = isRestitué ? 'restitué' : '';
+                const statusIcon = isRestitué ? 'fa-check-circle' : 'fa-hourglass-half';
+                const statusColor = isRestitué ? '#0e5a40' : '#b17d3c';
+                const statusLabel = isRestitué ? 'Restitué' : 'Perdu';
+
+                html += `
+                    <div class="card" data-id="${item.id}">
+                        <div class="card-top">
+                            <div class="card-title">
+                                <i class="fas ${isRestitué ? 'fa-circle-check' : 'fa-circle'}"></i>
+                                ${escapeHtml(item.name)}
+                            </div>
+                            <span class="card-status ${statusClass}">
+                                <i class="fas ${statusIcon}" style="color:${statusColor};"></i>
+                                ${statusLabel}
+                            </span>
+                        </div>
+                        <div class="card-details">
+                            <div class="card-detail">
+                                <i class="fas fa-map-pin"></i>
+                                ${escapeHtml(item.zone)}
+                                <span class="zone-tag"><i class="fas fa-plane"></i> Zone</span>
+                            </div>
+                            <div class="card-detail"><i class="fas fa-calendar-alt"></i> ${escapeHtml(item.date)}</div>
+                        </div>
+                        <div class="card-actions">
+                            <button class="btn-restore" data-action="toggle-status" data-id="${item.id}">
+                                <i class="fas fa-undo-alt"></i> ${isRestitué ? 'Rétablir' : 'Restituer'}
+                            </button>
+                            <button class="btn-delete" data-action="delete" data-id="${item.id}">
+                                <i class="fas fa-trash-can"></i> Supprimer
+                            </button>
+                        </div>
+                    </div>
+                `;
+            });
+            grid.innerHTML = html;
+            updateStatsAndCount(filtered);
+        }
+
+        // ============================================================
+        //  STATISTIQUES
+        // ============================================================
+        function updateStatsAndCount(data) {
+            const total = data.length;
+            const lost = data.filter(it => it.status === 'perdu').length;
+            const returned = total - lost;
+
+            totalCount.textContent = total;
+            lostCount.textContent = lost;
+            returnedCount.textContent = returned;
+            listCount.textContent = total;
+        }
+
+        // ============================================================
+        //  ACTIONS
+        // ============================================================
+        function addItem() {
+            const name = nameInput.value.trim();
+            const zone = zoneInput.value;
+            const date = dateInput.value;
+            const status = statusSelect.value;
+
+            if (!name) { alert('Veuillez saisir un nom d\'objet.'); return; }
+            if (!date) { alert('Veuillez sélectionner une date.'); return; }
+
+            const newItem = {
+                id: nextId++,
+                name: name,
+                zone: zone,
+                date: date,
+                status: status,
+            };
+            items.push(newItem);
+
+            // Réinitialiser
+            nameInput.value = '';
+            dateInput.value = new Date().toISOString().slice(0, 10);
+            statusSelect.value = 'perdu';
+
+            renderItems();
+        }
+
+        function handleCardAction(e) {
+            const target = e.target.closest('button');
+            if (!target) return;
+            const action = target.getAttribute('data-action');
+            const id = parseInt(target.getAttribute('data-id'), 10);
+            if (!id) return;
+
+            if (action === 'delete') {
+                if (confirm('Supprimer définitivement cet objet ?')) {
+                    items = items.filter(item => item.id !== id);
+                    renderItems();
+                }
+            } else if (action === 'toggle-status') {
+                const item = items.find(it => it.id === id);
+                if (item) {
+                    item.status = (item.status === 'restitué') ? 'perdu' : 'restitué';
+                    renderItems();
+                }
+            }
+        }
+
+        function resetFilters() {
+            zoneFilter.value = 'toutes';
+            searchInput.value = '';
+            renderItems();
+        }
+
+        // ============================================================
+        //  ÉVÉNEMENTS
+        // ============================================================
+        searchBtn.addEventListener('click', renderItems);
+        clearSearchBtn.addEventListener('click', () => {
+            searchInput.value = '';
+            renderItems();
+        });
+        searchInput.addEventListener('keyup', (e) => {
+            if (e.key === 'Enter') renderItems();
+            if (e.key === 'Escape') {
+                searchInput.value = '';
+                renderItems();
+            }
+        });
+
+        zoneFilter.addEventListener('change', renderItems);
+
+        addBtn.addEventListener('click', addItem);
+
+        grid.addEventListener('click', handleCardAction);
+
+        // ============================================================
+        //  INIT
+        // ============================================================
+        if (!dateInput.value) {
+            dateInput.value = new Date().toISOString().slice(0, 10);
+        }
+
+        renderItems();
+    })();
+</script>
+</body>
+</html>
