@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Gestion des Objets Perdus | Aéroport Marrakech Menara</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+
+    <style>
+
+        *{
+        margin:0;
+        padding:0;
+        box-sizing:border-box;
+        font-family:'Poppins',sans-serif;
+        scroll-behavior:smooth;
+        }
+
+        body{
+        background:#f4f7fb;
+        overflow-x:hidden;
+        color:#333;
+        }
+
+        /***********************
+        NAVBAR
+        ************************/
+
+        header{
+
+        position:fixed;
+        top:0;
+        left:0;
+        width:100%;
+        display:flex;
+        justify-content:space-between;
+        align-items:center;
+        padding:18px 8%;
+        background:rgba(0,0,0,.45);
+        backdrop-filter:blur(10px);
+        z-index:999;
+        transition:.4s;
+
+        }
+
+        header.sticky{
+
+        background:#003566;
+        box-shadow:0 5px 20px rgba(0,0,0,.3);
+
+        }
+
+        .logo{
+
+        color:#fff;
+        font-size:28px;
+        font-weight:700;
+        text-decoration:none;
+
+        }
+
+        .logo span{
+
+        color:#ffc300;
+
+        }
+
+        nav ul{
+
+        display:flex;
+        list-style:none;
+
+        }
+
+        nav ul li{
+
+        margin-left:30px;
+
+        }
+
+        nav ul li a{
+
+        text-decoration:none;
+        color:#fff;
+        font-size:16px;
+        font-weight:500;
+        transition:.3s;
+
+        }
+
+        nav ul li a:hover{
+
+        color:#ffc300;
+
+        }
+
+        .btn-login{
+
+        padding:10px 22px;
+        background:#ffc300;
+        border-radius:30px;
+        color:#000!important;
+        font-weight:600;
+
+        }
+
+        .btn-login:hover{
+
+        background:white;
+
+        }
+
+        /*********************
+        HERO
+        **********************/
+
+        .hero{
+
+        height:100vh;
+
+        background:
+
+        linear-gradient(rgba(0,0,0,.55),rgba(0,0,0,.55)),
+
+        url("https://images.unsplash.com/photo-1436491865332-7a61a109cc05?auto=format&fit=crop&w=1600&q=80");
+
+        background-size:cover;
+        background-position:center;
+
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        text-align:center;
+
+        padding:30px;
+
+        }
+
+        .hero-content{
+
+        max-width:900px;
+        color:white;
+        animation:fadeUp 1.5s;
+
+        }
+
+        .hero-content h1{
+
+        font-size:55px;
+        margin-bottom:20px;
+        line-height:70px;
+
+        }
+
+        .hero-content span{
+
+        color:#ffc300;
+
+        }
+
+        .hero-content p{
+
+        font-size:20px;
+        line-height:35px;
+        margin-bottom:40px;
+
+        }
+
+        .hero-buttons{
+
+        display:flex;
+        justify-content:center;
+        gap:20px;
+        flex-wrap:wrap;
+
+        }
+
+        .hero-buttons a{
+
+        text-decoration:none;
+        padding:18px 35px;
+        border-radius:50px;
+        font-size:18px;
+        font-weight:600;
+        transition:.4s;
+
+        }
+
+        .primary{
+
+        background:#ffc300;
+        color:#000;
+
+        }
+
+        .primary:hover{
+
+        background:white;
+        transform:translateY(-5px);
+
+        }
+
+        .secondary{
+
+        border:2px solid white;
+        color:white;
+
+        }
+
+        .secondary:hover{
+
+        background:white;
+        color:#003566;
+
+        }
+
+        /***********************
+        ABOUT
+        ************************/
+
+        .about{
+
+        padding:100px 8%;
+
+        display:grid;
+        grid-template-columns:repeat(auto-fit,minmax(350px,1fr));
+
+        gap:50px;
+        align-items:center;
+
+        }
+
+        .about img{
+
+        width:100%;
+        border-radius:20px;
+        box-shadow:0 10px 30px rgba(0,0,0,.2);
+
+        }
+
+        .about h2{
+
+        font-size:40px;
+        margin-bottom:20px;
+        color:#003566;
+
+        }
+
+        .about p{
+
+        line-height:32px;
+        font-size:17px;
+        margin-bottom:20px;
+
+        }
+
+        .about ul{
+
+        margin-top:20px;
+
+        }
+
+        .about ul li{
+
+        margin-bottom:15px;
+
+        }
+
+        /***********************
+        SECTION TITLE
+        ************************/
+
+        .section-title{
+
+        text-align:center;
+        margin-bottom:60px;
+
+        }
+
+        .section-title h2{
+
+        font-size:42px;
+        color:#003566;
+
+        }
+
+        .section-title p{
+
+        margin-top:15px;
+        font-size:18px;
+
+        }
+
+        /********************
+        ANIMATION
+        ********************/
+
+        @keyframes fadeUp{
+
+        from{
+
+        opacity:0;
+        transform:translateY(60px);
+
+        }
+
+        to{
+
+        opacity:1;
+        transform:translateY(0);
+
+        }
+
+        }
+
+        @media(max-width:900px){
+
+        .hero-content h1{
+
+        font-size:38px;
+        line-height:50px;
+
+        }
+
+        .hero-content p{
+
+        font-size:17px;
+
+        }
+
+        nav{
+
+        display:none;
+
+        }
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<header id="header">
+
+    <a href="#" class="logo">
+
+        <i class="fa-solid fa-plane"></i>
+
+        Sky<span>Found</span>
+
+    </a>
+
+    <nav>
+
+        <ul>
+
+
+
+            <li><a href="#about">À propos</a></li>
+
+
+            <li><a href="login.html" class="btn-login">Connexion</a></li>
+
+        </ul>
+
+    </nav>
+
+</header>
+
+<section class="hero">
+
+    <div class="hero-content">
+
+        <h1>
+
+            Plateforme de
+
+            <span>Gestion des Objets Perdus</span>
+
+        </h1>
+
+        <p>
+
+            la plateforme de l'Aéroport Marrakech-Menara offre un accès simple et sécurisé pour rechercher un objet perdu, visualiser les objets retrouvés
+        </p>
+
+        <div class="hero-buttons">
+
+            <a href="index.html" class="primary">
+
+                Chercher un objet perdu
+
+            </a>
+
+           
+
+        </div>
+
+    </div>
+
+</section>
+
+<section class="about" id="about">
+
+    <div>
+
+        <img src="https://images.unsplash.com/photo-1529074963764-98f45c47344b?auto=format&fit=crop&w=900&q=80">
+
+    </div>
+
+    <div>
+
+        <h2>
+
+            À propos du plateforme
+
+        </h2>
+
+        <p>
+
+            Cette plateforme permet aux voyageurs et au personnel de l'aéroport de gérer efficacement les objets perdus et trouvés, en centralisant les informations pour faciliter la recherche, le suivi et la restitution des biens.
+
+        </p>
+
+        
+
+    </div>
+
+</section>
+
+<script>
+
+    window.addEventListener("scroll",function(){
+
+    const header=document.getElementById("header");
+
+    header.classList.toggle("sticky",window.scrollY>50);
+
+    });
+
+</script>
+
+</body>
+</html>
