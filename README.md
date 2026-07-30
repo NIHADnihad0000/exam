@@ -7,6 +7,7 @@ https://github.com/NIHADnihad0000/exam/blob/main/interface.py
 
 // main.py
 https://github.com/NIHADnihad0000/exam/blob/main/main.py
- // [ cliquer ici pour voir le code]
- (acceuil.html)
- 
+// acceuil.html
+
+ https://github.com/NIHADnihad0000/exam/blob/main/acceuil.html
+
