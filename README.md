@@ -8,30 +8,31 @@ https://github.com/NIHADnihad0000/exam/blob/main/interface.py
 // main.py
 https://github.com/NIHADnihad0000/exam/blob/main/main.py
 
--FRONTEND
+-FRONTEND (3PFA)
 
-// index.html (3PFA)  
+// index.html   
 https://github.com/NIHADnihad0000/exam/blob/main/index.html
 
-// main.js (3PFA)
+// main.js 
 https://github.com/NIHADnihad0000/exam/blob/main/main.js
 
-// style.css (3PFA)
+// style.css 
 https://github.com/NIHADnihad0000/exam/blob/main/style.css
 
-// declaration.html (3PFA)
+// declaration.html 
 https://github.com/NIHADnihad0000/exam/blob/main/declaration.html
 
-// declaration.css (3PFA)
+// declaration.css 
 https://github.com/NIHADnihad0000/exam/blob/main/declaration.css
 
-// declaration.js (3PFA)
+// declaration.js 
 https://github.com/NIHADnihad0000/exam/blob/main/declaration.js
 
 
--BACKEND
+-BACKEND (3PFA)
 
 --config
+
 // DataInitializer.java
 https://github.com/NIHADnihad0000/exam/blob/main/DataInitializer.java
 
