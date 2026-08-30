@@ -8,16 +8,5 @@ https://github.com/NIHADnihad0000/exam/blob/main/interface.py
 // main.py
 https://github.com/NIHADnihad0000/exam/blob/main/main.py
 
-// acceuil.html
- https://github.com/NIHADnihad0000/exam/blob/main/acceuil.html
 
-// index.html
- https://github.com/NIHADnihad0000/exam/blob/main/index.html
-
- // main.js
-  https://github.com/NIHADnihad0000/exam/blob/main/main.js
-
-  // style.css
-   https://github.com/NIHADnihad0000/exam/blob/main/style.css
-   
   
