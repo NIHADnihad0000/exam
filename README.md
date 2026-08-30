@@ -122,7 +122,44 @@ https://github.com/NIHADnihad0000/exam/blob/main/Utilisateur.java
 
 --repository
 
-// 
+// CorrespondanceRepository.java
+https://github.com/NIHADnihad0000/exam/blob/main/CorrespondanceRepository.java
+
+// DeclarationRepository.java
+https://github.com/NIHADnihad0000/exam/blob/main/DeclarationRepository.java
+
+// DroitRepository.java
+https://github.com/NIHADnihad0000/exam/blob/main/DroitRepository.java
+
+// NotificationRepository.java
+https://github.com/NIHADnihad0000/exam/blob/main/NotificationRepository.java
+
+// ObjetTrouveRepository.java
+https://github.com/NIHADnihad0000/exam/blob/main/ObjetTrouveRepository.java
+
+// PassagerRepository.java
+https://github.com/NIHADnihad0000/exam/blob/main/PassagerRepository.java
+
+// RestitutionRepository.java
+https://github.com/NIHADnihad0000/exam/blob/main/ RestitutionRepository.java
+
+// RoleRepository.java
+https://github.com/NIHADnihad0000/exam/blob/main/RoleRepository.java
+
+// StatistiqueRepository.java
+https://github.com/NIHADnihad0000/exam/blob/main/StatistiqueRepository.java
+
+// UtilisateurRepository.java
+https://github.com/NIHADnihad0000/exam/blob/main/UtilisateurRepository.java
+
+
+
+--service
+
+//
+
+
+
 
 
 
