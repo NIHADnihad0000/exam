@@ -80,6 +80,51 @@ https://github.com/NIHADnihad0000/exam/blob/main/LoginResponse.java
 
 --entity
 
-//
-//
- 
+// Correspondance.java
+https://github.com/NIHADnihad0000/exam/blob/main/Correspondance.java
+
+// Declaration.java
+https://github.com/NIHADnihad0000/exam/blob/main/Declaration.java
+
+// Droit.java
+https://github.com/NIHADnihad0000/exam/blob/main/Droit.java
+
+// Notification.java
+https://github.com/NIHADnihad0000/exam/blob/main/Notification.java
+
+// ObjetTrouve.java
+https://github.com/NIHADnihad0000/exam/blob/main/ObjetTrouve.java
+
+// Passager.java
+https://github.com/NIHADnihad0000/exam/blob/main/Passager.java
+
+// Restitution.java
+https://github.com/NIHADnihad0000/exam/blob/main/Restitution.java
+
+// Role.java
+https://github.com/NIHADnihad0000/exam/blob/main/Role.java
+
+// Statistique.java
+https://github.com/NIHADnihad0000/exam/blob/main/Statistique.java
+
+// StatutDeclaration.java
+https://github.com/NIHADnihad0000/exam/blob/main/StatutDeclaration.java
+
+// StatutObjet.java
+https://github.com/NIHADnihad0000/exam/blob/main/StatutObjet.java
+
+// TypeRole.java
+https://github.com/NIHADnihad0000/exam/blob/main/TypeRole.java
+
+// Utilisateur.java
+https://github.com/NIHADnihad0000/exam/blob/main/Utilisateur.java
+
+
+--repository
+
+// 
+
+
+
+
+
