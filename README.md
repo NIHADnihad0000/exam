@@ -70,5 +70,16 @@ https://github.com/NIHADnihad0000/exam/blob/main/UtilisateurController.java
 
 
 --dto
+
+// LoginRequest.java
+https://github.com/NIHADnihad0000/exam/blob/main/LoginRequest.java
+
+// LoginResponse.java
+https://github.com/NIHADnihad0000/exam/blob/main/LoginResponse.java
+
+
+--entity
+
+//
 //
  
