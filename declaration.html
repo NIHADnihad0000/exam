@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Déclarer un objet perdu</title>
+
+    <link rel="stylesheet" href="declaration.css">
+</head>
+
+<body>
+
+<header class="header">
+
+    <div class="logo">
+        <span>✈</span>
+
+        <div>
+            <h2>Aéroport Marrakech-Menara</h2>
+            <p>Service des objets perdus</p>
+        </div>
+    </div>
+
+    <a href="index.html">Accueil</a>
+
+</header>
+
+
+<main class="container">
+
+    <div class="title">
+
+        <span>SERVICE DES OBJETS PERDUS</span>
+
+        <h1>Déclarer un objet perdu</h1>
+
+        <p>
+            Remplissez les informations ci-dessous afin de déclarer
+            votre objet perdu.
+        </p>
+
+    </div>
+
+
+    <form id="declarationForm">
+
+        <!-- PASSAGER -->
+
+        <section class="form-section">
+
+            <h2>Informations du passager</h2>
+
+            <div class="form-grid">
+
+                <div class="form-group">
+                    <label for="nom">Nom *</label>
+
+                    <input
+                        type="text"
+                        id="nom"
+                        required
+                        placeholder="Votre nom">
+                </div>
+
+
+                <div class="form-group">
+                    <label for="prenom">Prénom *</label>
+
+                    <input
+                        type="text"
+                        id="prenom"
+                        required
+                        placeholder="Votre prénom">
+                </div>
+
+
+                <div class="form-group">
+                    <label for="numeroPasseport">
+                        Numéro de passeport *
+                    </label>
+
+                    <input
+                        type="text"
+                        id="numeroPasseport"
+                        required
+                        placeholder="Numéro de passeport">
+                </div>
+
+
+                <div class="form-group">
+                    <label for="telephone">
+                        Téléphone
+                    </label>
+
+                    <input
+                        type="tel"
+                        id="telephone"
+                        >
+                </div>
+
+
+                <div class="form-group">
+                    <label for="email">
+                        Email
+                    </label>
+
+                    <input
+                        type="email"
+                        id="email"
+                        placeholder="exemple@gmail.com">
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- OBJET -->
+
+        <section class="form-section">
+
+            <h2>Informations sur l'objet</h2>
+
+            <div class="form-grid">
+
+                <div class="form-group">
+
+                    <label for="categorie">
+                        Catégorie *
+                    </label>
+
+                    <select id="categorie" required>
+
+                        <option value="">
+                            Sélectionner
+                        </option>
+
+                        <option value="TELEPHONE">
+                            Téléphone
+                        </option>
+
+                        <option value="ORDINATEUR">
+                            Ordinateur
+                        </option>
+
+                        <option value="SAC">
+                            Sac
+                        </option>
+
+                        <option value="PORTEFEUILLE">
+                            Portefeuille
+                        </option>
+
+                        <option value="DOCUMENT">
+                            Document
+                        </option>
+
+                        <option value="VETEMENT">
+                            Vêtement
+                        </option>
+
+                        <option value="AUTRE">
+                            Autre
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="lieuPerte">
+                        Lieu de perte *
+                    </label>
+
+                    <input
+                        type="text"
+                        id="lieuPerte"
+                        required
+                        placeholder="Ex : Terminal 1">
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="datePerte">
+                        Date et heure *
+                    </label>
+
+                    <input
+                        type="datetime-local"
+                        id="datePerte"
+                        required>
+                </div>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="description">
+                    Description *
+                </label>
+
+                <textarea
+                    id="description"
+                    rows="6"
+                    required
+                    placeholder="Décrivez l'objet : couleur, marque, modèle, signes particuliers...">
+                </textarea>
+
+            </div>
+
+        </section>
+
+
+        <div class="form-footer">
+
+            <span>
+                * Champs obligatoires
+            </span>
+
+            <button type="submit" id="submitButton">
+                Envoyer la déclaration
+            </button>
+
+        </div>
+
+    </form>
+
+
+    <div id="message" class="message"></div>
+
+
+    <!-- RESULTAT -->
+
+    <div id="resultat" class="resultat">
+
+        <h2>Déclaration enregistrée</h2>
+
+        <p>
+            Votre numéro de référence :
+        </p>
+
+        <strong id="reference"></strong>
+
+        <p>
+            Conservez cette référence pour le suivi
+            de votre déclaration.
+        </p>
+
+    </div>
+
+</main>
+
+
+<script src="declaration.js"></script>
+
+</body>
+</html>

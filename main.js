@@ -1,141 +1,252 @@
-/* ==========================================
-   Airport Lost & Found
-   main.js
-========================================== */
+document.addEventListener("DOMContentLoaded", function () {
 
-// ==========================
-// Barre de navigation
-// ==========================
+    /* =========================
+       MENU MOBILE
+    ========================= */
 
-const header = document.querySelector("header");
+    const menuToggle =
+        document.getElementById("menuToggle");
 
-window.addEventListener("scroll", () => {
+    const nav =
+        document.getElementById("nav");
 
-    if(window.scrollY > 60){
 
-        header.style.background = "#ffffff";
-        header.style.boxShadow = "0 5px 20px rgba(0,0,0,0.15)";
-        header.style.transition = "0.3s";
+    if (menuToggle && nav) {
 
-    }else{
+        menuToggle.addEventListener("click", function () {
 
-        header.style.background = "rgba(255,255,255,.95)";
-        header.style.boxShadow = "0 3px 15px rgba(0,0,0,.08)";
+            nav.classList.toggle("open");
+
+            const icon =
+                menuToggle.querySelector("i");
+
+            if (nav.classList.contains("open")) {
+
+                icon.classList.remove("fa-bars");
+
+                icon.classList.add("fa-xmark");
+
+            } else {
+
+                icon.classList.remove("fa-xmark");
+
+                icon.classList.add("fa-bars");
+            }
+
+        });
+
+
+        /* Fermer le menu après un clic */
+
+        const navLinks =
+            nav.querySelectorAll("a");
+
+        navLinks.forEach(function (link) {
+
+            link.addEventListener("click", function () {
+
+                nav.classList.remove("open");
+
+                const icon =
+                    menuToggle.querySelector("i");
+
+                icon.classList.remove("fa-xmark");
+
+                icon.classList.add("fa-bars");
+
+            });
+
+        });
 
     }
 
-});
+
+    /* =========================
+       HEADER AU SCROLL
+    ========================= */
+
+    const header =
+        document.getElementById("header");
 
 
-// ==========================
-// Apparition des sections
-// ==========================
+    window.addEventListener("scroll", function () {
 
-const observer = new IntersectionObserver((entries)=>{
+        if (window.scrollY > 50) {
 
-    entries.forEach(entry=>{
+            header.classList.add("scrolled");
 
-        if(entry.isIntersecting){
+        } else {
 
-            entry.target.classList.add("show");
+            header.classList.remove("scrolled");
 
         }
 
     });
 
-},{
-    threshold:0.2
-});
 
-document.querySelectorAll(".card,.step,.about").forEach(element=>{
+    /* =========================
+       COMPTEURS
+    ========================= */
 
-    observer.observe(element);
-
-});
+    const counters =
+        document.querySelectorAll(".counter");
 
 
-// ==========================
-// Bouton Retour en haut
-// ==========================
+    let countersStarted = false;
 
-const topButton = document.createElement("button");
 
-topButton.innerHTML = '<i class="fa-solid fa-arrow-up"></i>';
+    function startCounters() {
 
-topButton.id = "topButton";
+        if (countersStarted) {
+            return;
+        }
 
-document.body.appendChild(topButton);
+        countersStarted = true;
 
-topButton.style.position="fixed";
-topButton.style.bottom="30px";
-topButton.style.right="30px";
-topButton.style.width="55px";
-topButton.style.height="55px";
-topButton.style.borderRadius="50%";
-topButton.style.border="none";
-topButton.style.cursor="pointer";
-topButton.style.background="#1E88E5";
-topButton.style.color="white";
-topButton.style.fontSize="20px";
-topButton.style.display="none";
-topButton.style.boxShadow="0 10px 25px rgba(0,0,0,.2)";
-topButton.style.zIndex="1000";
 
-window.addEventListener("scroll",()=>{
+        counters.forEach(function (counter) {
 
-    if(window.scrollY>500){
+            const target =
+                Number(counter.dataset.target);
 
-        topButton.style.display="block";
+            let current = 0;
 
-    }else{
+            const increment =
+                Math.max(1, Math.ceil(target / 80));
 
-        topButton.style.display="none";
+
+            const timer =
+                setInterval(function () {
+
+                    current += increment;
+
+
+                    if (current >= target) {
+
+                        current = target;
+
+                        clearInterval(timer);
+                    }
+
+
+                    counter.textContent =
+                        current.toLocaleString("fr-FR");
+
+                }, 20);
+
+        });
 
     }
 
-});
 
-topButton.onclick=()=>{
+    /* =========================
+       DÉTECTION DE LA SECTION
+    ========================= */
 
-    window.scrollTo({
+    const statistics =
+        document.querySelector(".statistics");
 
-        top:0,
-        behavior:"smooth"
+
+    if (statistics) {
+
+        const observer =
+            new IntersectionObserver(
+                function (entries) {
+
+                    entries.forEach(function (entry) {
+
+                        if (entry.isIntersecting) {
+
+                            startCounters();
+
+                            observer.disconnect();
+                        }
+
+                    });
+
+                },
+                {
+                    threshold: 0.3
+                }
+            );
+
+        observer.observe(statistics);
+    }
+
+
+    /* =========================
+       ANNÉE FOOTER
+    ========================= */
+
+    const currentYear =
+        document.getElementById("currentYear");
+
+
+    if (currentYear) {
+
+        currentYear.textContent =
+            new Date().getFullYear();
+
+    }
+
+
+    /* =========================
+       LIENS DE NAVIGATION ACTIVE
+    ========================= */
+
+    const sections =
+        document.querySelectorAll("section[id]");
+
+    const links =
+        document.querySelectorAll(".nav-link");
+
+
+    window.addEventListener("scroll", function () {
+
+        let currentSection = "";
+
+
+        sections.forEach(function (section) {
+
+            const sectionTop =
+                section.offsetTop - 120;
+
+            const sectionHeight =
+                section.offsetHeight;
+
+
+            if (
+                window.scrollY >= sectionTop &&
+                window.scrollY < sectionTop + sectionHeight
+            ) {
+
+                currentSection =
+                    section.getAttribute("id");
+
+            }
+
+        });
+
+
+        links.forEach(function (link) {
+
+            link.classList.remove("active");
+
+
+            const href =
+                link.getAttribute("href");
+
+
+            if (
+                href === "#" + currentSection
+            ) {
+
+                link.classList.add("active");
+
+            }
+
+        });
 
     });
-
-};
-
-
-// ==========================
-// Animation des cartes
-// ==========================
-
-const cards=document.querySelectorAll(".card");
-
-cards.forEach(card=>{
-
-    card.addEventListener("mouseenter",()=>{
-
-        card.style.transform="translateY(-12px) scale(1.02)";
-
-    });
-
-    card.addEventListener("mouseleave",()=>{
-
-        card.style.transform="translateY(0px) scale(1)";
-
-    });
-
-});
-
-
-// ==========================
-// Message de bienvenue
-// ==========================
-
-window.addEventListener("load",()=>{
-
-    console.log("Airport Lost & Found chargé avec succès.");
 
 });
