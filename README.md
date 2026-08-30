@@ -10,3 +10,18 @@ https://github.com/NIHADnihad0000/exam/blob/main/main.py
 
 // index.html (3PFA)  
 https://github.com/NIHADnihad0000/exam/blob/main/index.html
+
+// main.js (3PFA)
+https://github.com/NIHADnihad0000/exam/blob/main/main.js
+
+// style.css (3PFA)
+https://github.com/NIHADnihad0000/exam/blob/main/style.css
+
+// declaration.html (3PFA)
+https://github.com/NIHADnihad0000/exam/blob/main/declaration.html
+
+// declaration.css (3PFA)
+https://github.com/NIHADnihad0000/exam/blob/main/declaration.css
+
+// declaration.js (3PFA)
+https://github.com/NIHADnihad0000/exam/blob/main/declaration.js
